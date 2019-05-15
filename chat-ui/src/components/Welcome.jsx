@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import connect from "react-redux/es/connect/connect";
+import {login} from "../actions/message.actions";
 
 class Welcome extends Component {
 
@@ -15,24 +16,24 @@ class Welcome extends Component {
     }
 
     handleChange(event) {
-        this.setState({loginId: event.target.loginId});
+        this.setState({loginId: event.target.value});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        alert('A name was submitted: ' + this.state.loginId);
+        this.props.login(this.state.loginId);
     }
 
     render() {
         return (
-            <form id="contact-form" onSubmit={() => this.handleSubmit} role="form">
-                <div className="controls">
+            <form id="contact-form" onSubmit={this.handleSubmit} role="form">
+                <div className="controls login-area">
                     <div className="row">
                         <div className="col-md-4">
                             <div className="form-group">
+                                <label>Enter your Login ID:</label>
                                 <input value={this.state.loginId} onChange={this.handleChange} type="text" name="name"
-                                       className="form-control"
-                                       placeholder="Please enter your login Id" required="required"/>
+                                       className="form-control" required="required"/>
                             </div>
                         </div>
                     </div>
@@ -55,4 +56,4 @@ mapStateToProps(state) {
     return {};
 }
 
-export default connect(mapStateToProps, {})(Welcome);
+export default connect(mapStateToProps, {login})(Welcome);

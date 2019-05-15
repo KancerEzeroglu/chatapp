@@ -1,57 +1,44 @@
-import { authHeader } from '../helpers';
-import {handleResponse} from "../helpers/service.utils";
-
-export const productService = {
-    getAllProducts,
-    getProductById,
-    createProduct,
-    updateProduct,
-    _deleteProduct
+export const messageService = {
+    getAllMessages,
+    getMessageById,
+    createMessage
 };
 
-function createProduct(product) {
+function createMessage(body) {
     const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(product)
+        body: JSON.stringify(body)
     };
 
-    return fetch('/api/products/', requestOptions).then(handleResponse);
+    return fetch('/api/send.php', requestOptions).then(handleResponse);
 }
 
-function updateProduct(product) {
+function getMessageById(id) {
     const requestOptions = {
-        method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(product)
-    };
-
-    return fetch('/api/products/', requestOptions).then(handleResponse);
-}
-
-function getProductById(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        method: 'GET'
     };
 
     return fetch('/api/products/' + id, requestOptions).then(handleResponse);
 }
 
-function getAllProducts() {
+function getAllMessages(sender, receiver) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        method: 'GET'
     };
 
-    return fetch(`/api/products` , requestOptions).then(handleResponse);
+    return fetch(`/api/receive.php?sender=${sender}&receiver=${receiver}` , requestOptions).then(handleResponse);
 }
 
-function _deleteProduct(id) {
-    const requestOptions = {
-        method: 'DELETE',
-        headers: authHeader()
-    };
+export function handleResponse(response) {
+    if (response.ok !== true) {
+        if( response.status === 401 ){
 
-    return fetch('/api/products/' + id, requestOptions).then(handleResponse);
+        }
+        return Promise.reject(response.statusText);
+    }
+
+    // The response of a fetch() request is a Stream object, which means that when we call the json() method,
+    // a Promise is returned since the reading of the stream will happen asynchronously.
+
+    return response.json();
 }

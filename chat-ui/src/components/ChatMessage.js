@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import connect from "react-redux/es/connect/connect";
+import {createMessage} from "../actions/message.actions";
 
-class Chat extends Component {
+class ChatMessage extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            loginId: ""
+            msgText: ""
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,34 +16,29 @@ class Chat extends Component {
     }
 
     handleChange(event) {
-        this.setState({loginId: event.target.value});
+        this.setState({msgText: event.target.value});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        alert('A name was submitted: ' + this.state.loginId);
+        this.props.createMessage(this.props.loginId, this.props.friendId, this.state.msgText);
+        this.setState({msgText: ""});
 
     }
 
     render() {
         return (
-            <form id="contact-form" onSubmit={this.handleSubmit} role="form">
-                <div className="controls login-area">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label>CHAT</label>
-                                <input value={this.state.loginId} onChange={this.handleChange} type="text" name="name"
-                                       className="form-control" required="required"/>
-                            </div>
+            <form id="message-form" onSubmit={this.handleSubmit} role="form">
+                <div className="row">
+                    <div className="col-md-10">
+                        <div className="form-group">
+                            <textarea value={this.state.msgText} onChange={this.handleChange} type="text" name="name"
+                                   className="form-control" required="required"/>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <input type="submit" className="btn btn-success btn-send" value="Login"/>
-                        </div>
+                    <div className="col-md-2">
+                        <input type="submit" className="btn btn-success btn-send" value="Send"/>
                     </div>
-
                 </div>
 
             </form>
@@ -53,7 +49,9 @@ class Chat extends Component {
 function
 
 mapStateToProps(state) {
-    return {};
+    return {
+        loginId: state.account.loginId
+    };
 }
 
-export default connect(mapStateToProps, {})(Chat);
+export default connect(mapStateToProps, {createMessage})(ChatMessage);

@@ -22,3 +22,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.login-area{
+  margin-top: 240px;
+  margin-left: 420px;
+}
+
+.chat-msg{
+  margin-top: 360px;
+}

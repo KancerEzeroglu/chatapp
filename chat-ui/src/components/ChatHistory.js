@@ -1,51 +1,54 @@
 import React, {Component} from "react";
 import connect from "react-redux/es/connect/connect";
+import {getAllMessages} from "../actions/message.actions";
 
-class Chat extends Component {
+function getMsgDirection(sender, me){
+    if(sender === me){
+        return "sent";
+    }else{
+        return "received";
+    }
+}
+
+class ChatHistory extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            loginId: ""
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({loginId: event.target.value});
+    componentDidMount() {
+        this.interval = setInterval(() => this.props.getAllMessages(this.props.loginId, this.props.friendId), 1000);
     }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        alert('A name was submitted: ' + this.state.loginId);
-
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {
-        return (
-            <form id="contact-form" onSubmit={this.handleSubmit} role="form">
-                <div className="controls login-area">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label>CHAT</label>
-                                <input value={this.state.loginId} onChange={this.handleChange} type="text" name="name"
-                                       className="form-control" required="required"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <input type="submit" className="btn btn-success btn-send" value="Login"/>
-                        </div>
-                    </div>
 
+        var messages = this.props.messages || [];
+        var loginId = this.props.loginId;
+
+        var chatList = messages.map(function (msg) {
+            var direction = getMsgDirection(msg.sender, loginId);
+            return (
+                <div className="row ">
+                    <div className="card" style={{width: '18rem'}}>
+                        <div className="card-body">
+                            <h5 className="card-title">
+
+                            </h5>
+                            {msg.content}
+                        </div>
+                    </div>
                 </div>
 
-            </form>
+            );
+        })
+
+        return (
+            <div>
+                {chatList}
+            </div>
         );
     };
 }
@@ -53,7 +56,10 @@ class Chat extends Component {
 function
 
 mapStateToProps(state) {
-    return {};
+    return {
+        messages: state.account.items,
+        loginId: state.account.loginId
+    }
 }
 
-export default connect(mapStateToProps, {})(Chat);
+export default connect(mapStateToProps, {getAllMessages})(ChatHistory);

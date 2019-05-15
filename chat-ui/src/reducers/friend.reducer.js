@@ -1,9 +1,21 @@
-import {messageConstants} from "../constants/message.constants";
+import {friendConstants} from "../constants/friend.constants";
 
-export function account(state = {}, action) {
+export function friend(state = {}, action) {
     switch (action.type) {
-        case messageConstants.LOGIN_SUCCESS:
-           return {loginId: action.loginId}
+        case friendConstants.GETALL_FRIENDS_REQUEST:
+            return {
+                ...state
+            };
+        case friendConstants.GETALL_FRIENDS_SUCCESS:
+           return {
+               ...state,
+               items: action.data.records
+           };
+
+        case friendConstants.GETALL_FRIENDS_FAILURE:
+            return {
+                error: action.error
+            };
         default:
             return state
     }

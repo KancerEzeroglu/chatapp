@@ -1,32 +1,13 @@
-export const messageService = {
-    getAllMessages,
-    getMessageById,
-    createMessage
+export const friendService = {
+    getAllFriends
 };
 
-function createMessage(message) {
-    const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(message)
-    };
-
-    return fetch('/api/products/', requestOptions).then(handleResponse);
-}
-
-function getMessageById(id) {
+function getAllFriends() {
     const requestOptions = {
         method: 'GET'
     };
 
-    return fetch('/api/products/' + id, requestOptions).then(handleResponse);
-}
-
-function getAllMessages() {
-    const requestOptions = {
-        method: 'GET'
-    };
-
-    return fetch(`/api/receive.php` , requestOptions).then(handleResponse);
+    return fetch(`/api/friends.php` , requestOptions).then(handleResponse);
 }
 
 export function handleResponse(response) {

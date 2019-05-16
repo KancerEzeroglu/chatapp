@@ -56,7 +56,7 @@ class ChatHistory extends Component {
                 </div>
 
             );
-        })
+        });
 
         return (
             <div>

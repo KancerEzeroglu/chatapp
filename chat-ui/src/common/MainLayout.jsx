@@ -6,14 +6,14 @@ import Friends from "../components/Friends";
 import Chat from "../components/Chat";
 import connect from "react-redux/es/connect/connect";
 
-class TopMenuLayout extends Component {
+class MainLayout extends Component {
 
     render() {
         return (
             <div className="starter-template">
                 <Switch>
-                    {this.props.loginId ? <Route exact path="/" component={Friends}/> : <Route exact path="/" component={Welcome}/>}
                     {this.props.loginId && <Route exact path="/chat/:friendId" component={Chat}/>}
+                    {this.props.loginId ? <Route path="/" component={Friends}/> : <Route path="/" component={Welcome}/>}
                 </Switch>
             </div>
         );
@@ -28,4 +28,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {})(TopMenuLayout);
+export default connect(mapStateToProps, {})(MainLayout);

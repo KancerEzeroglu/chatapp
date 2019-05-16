@@ -1,11 +1,11 @@
 import {friendService} from "../services/friend.service";
 import {friendConstants} from "../constants/friend.constants";
 
-export function getAllFriends() {
+export function getAllFriends(loginId) {
     return dispatch => {
         dispatch(request());
 
-        friendService.getAllFriends()
+        friendService.getAllFriends(loginId)
             .then(
                 items => dispatch(success(items)),
                 error => dispatch(failure(error))
@@ -26,28 +26,26 @@ export function getAllFriends() {
     }
 }
 
-/*
-export function getMessageById(productId) {
+export function getFriendById(friendId) {
     return dispatch => {
-        dispatch(request(productId));
+        dispatch(request(friendId));
 
-        productService.getProductById(productId)
+        friendService.getFriendById(friendId)
             .then(
-                product => dispatch(success(product)),
+                payload => dispatch(success(payload)),
                 error => dispatch(failure(error))
             );
     };
 
     function request() {
-        return {type: productConstants.GET_REQUEST}
+        return {type: friendConstants.GET_REQUEST}
     }
 
-    function success(product) {
-        return {type: productConstants.GET_SUCCESS, product}
+    function success(payload) {
+        return {type: friendConstants.GET_SUCCESS, payload}
     }
 
     function failure(error) {
-        return {type: productConstants.GET_FAILURE, error}
+        return {type: friendConstants.GET_FAILURE, error}
     }
 }
-*/

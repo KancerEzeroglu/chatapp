@@ -1,16 +1,8 @@
 import React, {Component} from "react";
-import connect from "react-redux/es/connect/connect";
 import ChatHistory from "./ChatHistory";
 import ChatMessage from "./ChatMessage";
 
 class Chat extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
 
     render() {
         return (
@@ -26,10 +18,5 @@ class Chat extends Component {
     };
 }
 
-function
 
-mapStateToProps(state) {
-    return {};
-}
-
-export default connect(mapStateToProps, {})(Chat);
+export default Chat;

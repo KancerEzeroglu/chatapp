@@ -6,6 +6,9 @@ export function account(state = {loginId: localStorage.getItem('loginId')}, acti
         case messageConstants.LOGIN_SUCCESS:
            return {loginId: action.loginId};
 
+        case messageConstants.LOGOUT_SUCCESS:
+            return {};
+
 
         case messageConstants.GETALL_REQUEST:
             return {

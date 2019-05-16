@@ -9,6 +9,15 @@ export function login(loginId){
     }
 }
 
+export function logout(props){
+    return dispatch => {
+        localStorage.removeItem('loginId');
+        props.history.push('/');
+
+        dispatch({type: messageConstants.LOGOUT_SUCCESS});
+    }
+}
+
 export function getAllMessages(sender, receiver) {
     return dispatch => {
         dispatch(request());

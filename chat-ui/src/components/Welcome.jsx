@@ -32,7 +32,7 @@ class Welcome extends Component {
                         <div className="col-md-4">
                             <div className="form-group">
                                 <label>Enter your Login ID:</label>
-                                <input value={this.state.loginId} onChange={this.handleChange} type="text" name="name"
+                                <input value={this.state.loginId} onChange={this.handleChange} type="number" name="name"
                                        className="form-control" required="required"/>
                             </div>
                         </div>
@@ -42,9 +42,7 @@ class Welcome extends Component {
                             <input type="submit" className="btn btn-success btn-send" value="Login"/>
                         </div>
                     </div>
-
                 </div>
-
             </form>
         );
     };

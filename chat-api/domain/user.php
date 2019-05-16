@@ -1,4 +1,5 @@
 <?php
+
 class User
 {
 
@@ -17,10 +18,21 @@ class User
     }
 
     // read products
-    function read(){
+    function getUsersExceptMe($loginId)
+    {
 
         // select all query
-        $query = "SELECT * FROM " . $this->table_name;
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id != {$loginId}";
+
+        return $this->conn->query($query);
+    }
+
+    // read products
+    function getUserById($loginId)
+    {
+
+        // select all query
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id == {$loginId}";
 
         return $this->conn->query($query);
     }

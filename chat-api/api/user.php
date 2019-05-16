@@ -14,30 +14,24 @@ $db = $database->getConnection();
 // initialize object
 $user = new User($db);
 
-$stmt = $user->read();
+$stmt = $user->getUserById($_GET['loginId']);
 
-
-$users_arr = array();
-$users_arr["records"] = array();
 
 while ($row = $stmt->fetchArray()) {
-
     //var_dump($row);
 
     $user_item = array(
         "id" => $row['ID'],
         "name" => $row['NAME']
     );
-
-    array_push($users_arr["records"], $user_item);
 }
 
-if (sizeof($users_arr["records"]) > 0) {
+if (isset($user_item)) {
     // set response code - 200 OK
     http_response_code(200);
 
     // show products data in json format
-    echo json_encode($users_arr);
+    echo json_encode($user_item);
 } else {
 
     // set response code - 404 Not found

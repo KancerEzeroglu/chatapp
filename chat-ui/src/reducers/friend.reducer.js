@@ -7,12 +7,27 @@ export function friend(state = {}, action) {
                 ...state
             };
         case friendConstants.GETALL_FRIENDS_SUCCESS:
-           return {
-               ...state,
-               items: action.data.records
-           };
+            return {
+                ...state,
+                items: action.data.records
+            };
 
         case friendConstants.GETALL_FRIENDS_FAILURE:
+            return {
+                error: action.error
+            };
+
+        case friendConstants.GET_REQUEST:
+            return {
+                ...state
+            };
+        case friendConstants.GET_SUCCESS:
+            return {
+                ...state,
+                item: action.payload
+            };
+
+        case friendConstants.GET_FAILURE:
             return {
                 error: action.error
             };

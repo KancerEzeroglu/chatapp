@@ -6,26 +6,22 @@ import Link from "react-router-dom/es/Link";
 
 class Friends extends Component {
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        this.props.getAllFriends(this.props.loginId);
     }
-
-    componentDidMount(){
-        this.props.getAllFriends();
-    }
-
 
     render() {
         var friends = this.props.friends || [];
 
-        var tableBody = friends.map(function(item) {
+        var tableBody = friends.map(function (item) {
             return (
                 <tr key={item.id}>
                     <td key="id">{item.id}</td>
                     <td key="name"><Link to={"/chat/" + item.id}>{item.name}</Link></td>
-                </tr>); });
+                </tr>);
+        });
 
-        return(
+        return (
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -43,7 +39,8 @@ class Friends extends Component {
 
 function mapStateToProps(state) {
     return {
-        friends: state.friend.items
+        friends: state.friend.items,
+        loginId: state.account.loginId
     };
 }
 

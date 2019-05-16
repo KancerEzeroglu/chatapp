@@ -1,18 +1,27 @@
 export const friendService = {
-    getAllFriends
+    getAllFriends,
+    getFriendById
 };
 
-function getAllFriends() {
+function getAllFriends(loginId) {
     const requestOptions = {
         method: 'GET'
     };
 
-    return fetch(`/api/friends.php` , requestOptions).then(handleResponse);
+    return fetch(`/api/friend.php?loginId=${loginId}`, requestOptions).then(handleResponse);
+}
+
+function getFriendById(friendId) {
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(`/api/user.php?loginId=${friendId}`, requestOptions).then(handleResponse);
 }
 
 export function handleResponse(response) {
     if (response.ok !== true) {
-        if( response.status === 401 ){
+        if (response.status === 401) {
 
         }
         return Promise.reject(response.statusText);

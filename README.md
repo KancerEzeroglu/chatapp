@@ -22,7 +22,7 @@ docker run -d -p 8080:80 --mount type=bind,source="$(pwd)/chat-api",target=/var/
 7. After login you will see a friends page where you can click on one to chat
 8. Now you can chat using the best-ever chat application :)
 
-# Things I would do if will have more time
+# Things I would do if had more time
 - Learn PHP, I read a [tutorial](https://www.codeofaninja.com/2017/02/create-simple-rest-api-in-php.html) and tried to implement the backend, it is my first PHP project.
 - Add tests to both backend and frontend
 - Add extra checks on backend, I just hacked it
